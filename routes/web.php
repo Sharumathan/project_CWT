@@ -536,11 +536,12 @@ Route::get('/debug-email', function () {
     echo "<p><strong>DNS Lookup for '{$config['host']}':</strong> $flushed</p>";
 
     try {
-        \Illuminate\Support\Facades\Mail::raw('This is a test email from GreenMarket Debugger.', function ($message) {
-            $message->to('sharumathan@gmail.com')
-                ->subject('GreenMarket SMTP Debug');
+        $recipient = request()->query('to', 'malabepasanga@gmail.com'); // Default to the allowed email from error
+        \Illuminate\Support\Facades\Mail::raw('This is a test email from GreenMarket Debugger.', function ($message) use ($recipient) {
+            $message->to($recipient)
+                ->subject('GreenMarket SMTP/Resend Debug');
         });
-        return 'Email sent successfully! Your SMTP configuration is correct.';
+        return "Email sent successfully to <strong>$recipient</strong>! <br>Your Mail configuration is correct.";
     } catch (\Exception $e) {
         return '<h1>Email Sending Failed</h1>' .
             '<p><strong>Error Message:</strong> ' . $e->getMessage() . '</p>' .
