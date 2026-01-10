@@ -89,7 +89,20 @@ def convert_copy_to_insert(input_file, output_file):
             if in_copy_block and table_name:
                 # Split by tab
                 values = line.split('\t')
-                parsed_values = [parse_value(v) for v in values]
+                
+                # Sanitize values
+                sanitized_values = []
+                for val in values:
+                     # Replace literal \r\n with \n
+                     val = val.replace('\\r\\n', '\n').replace('\\n', '\n')
+                     
+                     # Replace bad filenames
+                     val = val.replace('how it works - buyer.png', 'how-it-works-buyer.png')
+                     val = val.replace('how it works - farmer.png', 'how-it-works-farmer.png')
+                     
+                     sanitized_values.append(val)
+                
+                parsed_values = [parse_value(v) for v in sanitized_values]
                 vals_str = ", ".join(parsed_values)
                 sql = f"INSERT INTO {table_name} ({columns}) VALUES ({vals_str}) ON CONFLICT DO NOTHING;\n"
                 table_blocks[table_name].append(sql)
