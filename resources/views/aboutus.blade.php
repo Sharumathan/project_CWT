@@ -53,8 +53,8 @@
 						@php
 							$aboutImage1 = getAboutConfig('about_us_image_1', $aboutConfigs);
 						@endphp
-						<img src="{{ asset('assets/images/' . $aboutImage1) }}" alt="Farmers and Buyers Connection"
-							class="hero-img">
+						<img src="{{ asset('assets/images/' . ($aboutImage1 ?: 'hero-bg-2.jpg')) }}"
+							alt="Farmers and Buyers Connection" class="hero-img">
 						<div class="image-overlay"></div>
 					</div>
 				</div>
@@ -68,8 +68,8 @@
 						@php
 							$aboutImage2 = getAboutConfig('about_us_image_2', $aboutConfigs);
 						@endphp
-						<img src="{{ asset('assets/images/' . $aboutImage2) }}" alt="Our Farming Community"
-							class="details-img">
+						<img src="{{ asset('assets/images/' . ($aboutImage2 ?: 'hero-bg-1.jpg')) }}"
+							alt="Our Farming Community" class="details-img">
 						<div class="floating-badge">
 							<i class="fas fa-leaf"></i>
 							<span>Organic & Fresh</span>
@@ -1091,20 +1091,20 @@
 					Swal.fire({
 						title: 'About GreenMarket',
 						html: `
-						<div style="text-align: left;">
-							<p><strong>🌱 Our Platform Features:</strong></p>
-							<ul style="text-align: left; margin-left: 20px;">
-								<li>Direct farmer-to-buyer connections</li>
-								<li>Secure payment processing</li>
-								<li>Real-time inventory management</li>
-								<li>Quality assurance standards</li>
-								<li>Mobile-responsive design</li>
-								<li>Multi-language support</li>
-							</ul>
-							<p style="margin-top: 15px;"><strong>📞 Get Started:</strong></p>
-							<p>Register today to experience fresh, local produce delivered with transparency and trust.</p>
-						</div>
-					`,
+							<div style="text-align: left;">
+								<p><strong>🌱 Our Platform Features:</strong></p>
+								<ul style="text-align: left; margin-left: 20px;">
+									<li>Direct farmer-to-buyer connections</li>
+									<li>Secure payment processing</li>
+									<li>Real-time inventory management</li>
+									<li>Quality assurance standards</li>
+									<li>Mobile-responsive design</li>
+									<li>Multi-language support</li>
+								</ul>
+								<p style="margin-top: 15px;"><strong>📞 Get Started:</strong></p>
+								<p>Register today to experience fresh, local produce delivered with transparency and trust.</p>
+							</div>
+						`,
 						icon: 'info',
 						confirmButtonText: 'Get Started',
 						confirmButtonColor: '#10B981',
@@ -1130,14 +1130,14 @@
 					Swal.fire({
 						title: name,
 						html: `
-						<div style="text-align: center;">
-							<div style="width: 60px; height: 60px; background: linear-gradient(135deg, #10B981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 1.5rem;">
-								${this.querySelector('.team-avatar').innerHTML}
+							<div style="text-align: center;">
+								<div style="width: 60px; height: 60px; background: linear-gradient(135deg, #10B981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 1.5rem;">
+									${this.querySelector('.team-avatar').innerHTML}
+								</div>
+								<p style="color: #10B981; font-weight: 600; margin-bottom: 15px;">${role}</p>
+								<p>${description}</p>
 							</div>
-							<p style="color: #10B981; font-weight: 600; margin-bottom: 15px;">${role}</p>
-							<p>${description}</p>
-						</div>
-					`,
+						`,
 						icon: 'info',
 						confirmButtonText: 'OK',
 						confirmButtonColor: '#10B981'
@@ -1155,16 +1155,16 @@
 					Swal.fire({
 						title: title,
 						html: `
-						<div style="text-align: center;">
-							<div style="width: 50px; height: 50px; background: linear-gradient(135deg, #10B981, #059669); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 1.2rem;">
-								${this.querySelector('.offering-icon').innerHTML}
+							<div style="text-align: center;">
+								<div style="width: 50px; height: 50px; background: linear-gradient(135deg, #10B981, #059669); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 1.2rem;">
+									${this.querySelector('.offering-icon').innerHTML}
+								</div>
+								<div style="display: inline-block; padding: 4px 12px; background: rgba(16, 185, 129, 0.1); color: #10B981; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 15px;">
+									${badge}
+								</div>
+								<p>${description}</p>
 							</div>
-							<div style="display: inline-block; padding: 4px 12px; background: rgba(16, 185, 129, 0.1); color: #10B981; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 15px;">
-								${badge}
-							</div>
-							<p>${description}</p>
-						</div>
-					`,
+						`,
 						icon: 'success',
 						confirmButtonText: 'Got it',
 						confirmButtonColor: '#10B981'
