@@ -519,6 +519,22 @@ Route::get('/temp-db-import', function () {
 });
 
 Route::get('/debug-email', function () {
+    $config = config('mail.mailers.smtp');
+    // Hide password for security in output
+    $safeConfig = $config;
+    $safeConfig['password'] = '********';
+
+    $flushed = 'N/A';
+    try {
+        $flushed = gethostbyname($config['host']);
+    } catch (\Exception $e) {
+        $flushed = 'Lookup Failed: ' . $e->getMessage();
+    }
+
+    echo "<h3>SMTP Config Dump</h3>";
+    echo "<pre>" . print_r($safeConfig, true) . "</pre>";
+    echo "<p><strong>DNS Lookup for '{$config['host']}':</strong> $flushed</p>";
+
     try {
         \Illuminate\Support\Facades\Mail::raw('This is a test email from GreenMarket Debugger.', function ($message) {
             $message->to('sharumathan@gmail.com')
