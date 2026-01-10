@@ -1,1 +1,1 @@
-web: php artisan migrate --force && php artisan cache:clear && php artisan config:clear && php artisan storage:link && vendor/bin/heroku-php-apache2 public/
+web: php artisan migrate --force && php artisan cache:clear && php artisan config:clear && php artisan storage:link && php artisan serve --host 0.0.0.0 --port ${PORT:-8080}
