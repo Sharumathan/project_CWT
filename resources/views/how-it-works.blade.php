@@ -633,8 +633,8 @@
 						@php
 							$buyerImage = getHowItWorksConfig('How_Works_For_Buyers_image', $howItWorksConfigs);
 						@endphp
-						<img src="{{ asset('assets/images/' . $buyerImage) }}" alt="How GreenMarket Works for Buyers"
-							class="role-image" onerror="this.style.display='none'">
+						<img src="{{ asset('assets/images/' . ($buyerImage ?: 'how-it-works-buyer.png')) }}"
+							alt="How GreenMarket Works for Buyers" class="role-image" onerror="this.style.display='none'">
 						<div class="image-caption">Buyer Process Flow</div>
 					</div>
 
@@ -666,8 +666,8 @@
 						@php
 							$farmerImage = getHowItWorksConfig('How_Works_For_Farmer_image', $howItWorksConfigs);
 						@endphp
-						<img src="{{ asset('assets/images/' . $farmerImage) }}" alt="How GreenMarket Works for Farmers"
-							class="role-image" onerror="this.style.display='none'">
+						<img src="{{ asset('assets/images/' . ($farmerImage ?: 'how-it-works-farmer.png')) }}"
+							alt="How GreenMarket Works for Farmers" class="role-image" onerror="this.style.display='none'">
 						<div class="image-caption">Farmer Process Flow</div>
 					</div>
 
@@ -849,20 +849,20 @@
 					Swal.fire({
 						title: 'Ready to Join?',
 						html: `
-							<div style="text-align: center; padding: 8px;">
-								<i class="fas fa-user-plus" style="font-size: 1.8rem; color: #10B981; margin-bottom: 8px;"></i>
-								<h3 style="color: #0f1724; margin-bottom: 6px; font-size: 1rem;">Choose Your Role</h3>
-								<p style="color: #6b7280; margin-bottom: 10px; font-size: 0.85rem;">Select how you want to use GreenMarket</p>
-								<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
-									<button onclick="window.location.href='{{ route('buyer.register') }}'" style="background: linear-gradient(135deg, #10B981, #059669); color: white; border: none; padding: 9px 14px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.85rem;">
-										<i class="fas fa-shopping-cart"></i> As Buyer
-									</button>
-									<button onclick="showFarmerInfo()" style="background: #ffffff; color: #0f1724; border: 1px solid #10B981; padding: 9px 14px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.85rem;">
-										<i class="fas fa-seedling"></i> As Farmer
-									</button>
+								<div style="text-align: center; padding: 8px;">
+									<i class="fas fa-user-plus" style="font-size: 1.8rem; color: #10B981; margin-bottom: 8px;"></i>
+									<h3 style="color: #0f1724; margin-bottom: 6px; font-size: 1rem;">Choose Your Role</h3>
+									<p style="color: #6b7280; margin-bottom: 10px; font-size: 0.85rem;">Select how you want to use GreenMarket</p>
+									<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+										<button onclick="window.location.href='{{ route('buyer.register') }}'" style="background: linear-gradient(135deg, #10B981, #059669); color: white; border: none; padding: 9px 14px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.85rem;">
+											<i class="fas fa-shopping-cart"></i> As Buyer
+										</button>
+										<button onclick="showFarmerInfo()" style="background: #ffffff; color: #0f1724; border: 1px solid #10B981; padding: 9px 14px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.85rem;">
+											<i class="fas fa-seedling"></i> As Farmer
+										</button>
+									</div>
 								</div>
-							</div>
-						`,
+							`,
 						showConfirmButton: false,
 						showCloseButton: true,
 						background: '#ffffff',
@@ -876,17 +876,17 @@
 				Swal.fire({
 					title: 'Farmer Registration',
 					html: `
-						<div style="text-align: left; padding: 6px;">
-							<i class="fas fa-seedling" style="font-size: 1.6rem; color: #10B981; margin-bottom: 6px; display: block; text-align: center;"></i>
-							<h3 style="color: #0f1724; margin-bottom: 6px; text-align: center; font-size: 1rem;">How Farmers Register</h3>
-							<div style="background: rgba(16, 185, 129, 0.1); padding: 8px; border-radius: 6px; margin-bottom: 6px;">
-								<p style="color: #0f1724; margin-bottom: 3px; font-size: 0.8rem;"><strong>Step 1:</strong> Contact your area's Lead Farmer</p>
-								<p style="color: #0f1724; margin-bottom: 3px; font-size: 0.8rem;"><strong>Step 2:</strong> Provide product details</p>
-								<p style="color: #0f1724; font-size: 0.8rem;"><strong>Step 3:</strong> Lead Farmer registers you</p>
+							<div style="text-align: left; padding: 6px;">
+								<i class="fas fa-seedling" style="font-size: 1.6rem; color: #10B981; margin-bottom: 6px; display: block; text-align: center;"></i>
+								<h3 style="color: #0f1724; margin-bottom: 6px; text-align: center; font-size: 1rem;">How Farmers Register</h3>
+								<div style="background: rgba(16, 185, 129, 0.1); padding: 8px; border-radius: 6px; margin-bottom: 6px;">
+									<p style="color: #0f1724; margin-bottom: 3px; font-size: 0.8rem;"><strong>Step 1:</strong> Contact your area's Lead Farmer</p>
+									<p style="color: #0f1724; margin-bottom: 3px; font-size: 0.8rem;"><strong>Step 2:</strong> Provide product details</p>
+									<p style="color: #0f1724; font-size: 0.8rem;"><strong>Step 3:</strong> Lead Farmer registers you</p>
+								</div>
+								<p style="color: #6b7280; font-size: 0.7rem; text-align: center;">Don't know your Lead Farmer? Contact Grama Sevakar.</p>
 							</div>
-							<p style="color: #6b7280; font-size: 0.7rem; text-align: center;">Don't know your Lead Farmer? Contact Grama Sevakar.</p>
-						</div>
-					`,
+						`,
 					confirmButtonText: 'Got It',
 					confirmButtonColor: '#10B981',
 					background: '#ffffff',
