@@ -1,32 +1,3 @@
-SELECT pg_catalog.setval('public.buyer_product_requests_id_seq', 43, true);;
-SELECT pg_catalog.setval('public.buyers_id_seq', 21, true);;
-SELECT pg_catalog.setval('public.complaints_id_seq', 4, true);;
-SELECT pg_catalog.setval('public.facilitators_id_seq', 2, true);;
-SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);;
-SELECT pg_catalog.setval('public.farmers_id_seq', 3, true);;
-SELECT pg_catalog.setval('public.invoice_template_settings_id_seq', 1, false);;
-SELECT pg_catalog.setval('public.jobs_id_seq', 4, true);;
-SELECT pg_catalog.setval('public.lead_farmers_id_seq', 2, true);;
-SELECT pg_catalog.setval('public.migrations_id_seq', 8, true);;
-SELECT pg_catalog.setval('public.notifications_id_seq', 58, true);;
-SELECT pg_catalog.setval('public.order_items_id_seq', 19, true);;
-SELECT pg_catalog.setval('public.orders_id_seq', 9, true);;
-SELECT pg_catalog.setval('public.otp_verifications_id_seq', 19, true);;
-SELECT pg_catalog.setval('public.password_history_id_seq', 11, true);;
-SELECT pg_catalog.setval('public.payments_id_seq', 2, true);;
-SELECT pg_catalog.setval('public.product_categories_id_seq', 14, true);;
-SELECT pg_catalog.setval('public.product_examples_id_seq', 120, true);;
-SELECT pg_catalog.setval('public.product_feedback_id_seq', 2, true);;
-SELECT pg_catalog.setval('public.product_subcategories_id_seq', 38, true);;
-SELECT pg_catalog.setval('public.products_id_seq', 70, true);;
-SELECT pg_catalog.setval('public.report_template_settings_id_seq', 1, false);;
-SELECT pg_catalog.setval('public.shopping_cart_id_seq', 12, true);;
-SELECT pg_catalog.setval('public.system_config_id_seq', 41, true);;
-SELECT pg_catalog.setval('public.system_standards_id_seq', 8, true);;
-SELECT pg_catalog.setval('public.template_variables_id_seq', 1, false);;
-SELECT pg_catalog.setval('public.templates_id_seq', 2, true);;
-SELECT pg_catalog.setval('public.users_id_seq', 26, true);;
-SELECT pg_catalog.setval('public.wishlists_id_seq', 12, true);;
 -- Importing public.users
 INSERT INTO public.users (id, username, password, email, role, is_active, profile_photo, created_at, last_login, updated_at) VALUES ('15', 'TharminiBuyer', '$2y$12$KHJIc58a.oKU8xLdGUw5BOnsWgza0c3T3AEOyG0cNfYpkRxHW36Ra', 'abishiganfcl24@gmail.com', 'buyer', 't', 'default-avatar.png', '2025-12-18 12:24:00', NULL, '2025-12-18 12:24:00') ON CONFLICT DO NOTHING;
 INSERT INTO public.users (id, username, password, email, role, is_active, profile_photo, created_at, last_login, updated_at) VALUES ('16', 'Buyer_Ragu_1712', '$2y$12$MZGBiGwaOIXY/B5CMLadX.QdC4pPTNAnXif0jF9.IAhQMv4zLh71q', 'raguraam712@gmail.com', 'buyer', 't', 'default-avatar.png', '2025-12-18 13:53:13', NULL, '2025-12-18 13:53:13') ON CONFLICT DO NOTHING;
@@ -498,3 +469,34 @@ INSERT INTO public.templates (id, template_name, template_type, template_file_pa
 -- Importing public.wishlists
 INSERT INTO public.wishlists (id, buyer_id, product_id, created_at, updated_at) VALUES ('11', '1', '3', '2025-12-10 07:57:34', '2025-12-10 07:57:34') ON CONFLICT DO NOTHING;
 INSERT INTO public.wishlists (id, buyer_id, product_id, created_at, updated_at) VALUES ('12', '21', '4', '2026-01-09 16:58:10', '2026-01-09 16:58:10') ON CONFLICT DO NOTHING;
+
+-- Sequence Resets
+DO $$
+BEGIN
+    BEGIN PERFORM pg_catalog.setval('public.buyer_product_requests_id_seq', 43, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.buyers_id_seq', 21, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.complaints_id_seq', 4, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.facilitators_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.failed_jobs_id_seq', 1, false);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.farmers_id_seq', 3, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.jobs_id_seq', 4, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.lead_farmers_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.migrations_id_seq', 8, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.notifications_id_seq', 58, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.order_items_id_seq', 19, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.orders_id_seq', 9, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.otp_verifications_id_seq', 19, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.password_history_id_seq', 11, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.payments_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.product_categories_id_seq', 14, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.product_examples_id_seq', 120, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.product_feedback_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.product_subcategories_id_seq', 38, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.products_id_seq', 70, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.shopping_cart_id_seq', 12, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.system_config_id_seq', 41, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.system_standards_id_seq', 8, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.templates_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.users_id_seq', 26, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.wishlists_id_seq', 12, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+END $$;
