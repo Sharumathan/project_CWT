@@ -14,6 +14,7 @@ def convert_copy_to_insert(input_file, output_file):
         table_name = None
         columns = None
         in_copy_block = False
+        table_blocks = {}
         
         for line in lines:
             line = line.strip()
@@ -28,6 +29,7 @@ def convert_copy_to_insert(input_file, output_file):
                 f_out.write(line + ";\n")
                 continue
             
+
             if line.startswith('COPY'):
                 # Parse: COPY public.users (id, username, ...) FROM stdin;
                 match = re.search(r'COPY\s+(.+?)\s+\((.+?)\)\s+FROM\s+stdin;', line)
@@ -35,7 +37,10 @@ def convert_copy_to_insert(input_file, output_file):
                     table_name = match.group(1)
                     columns = match.group(2)
                     in_copy_block = True
-                    f_out.write(f"-- Importing {table_name}\n")
+                    # Initialize buffer for this table if not exists
+                    if table_name not in table_blocks:
+                         table_blocks[table_name] = []
+                    table_blocks[table_name].append(f"-- Importing {table_name}\n")
                 continue
             
             if line == r'\.':
@@ -44,13 +49,48 @@ def convert_copy_to_insert(input_file, output_file):
                 columns = None
                 continue
                 
-            if in_copy_block:
+            if in_copy_block and table_name:
                 # Split by tab
                 values = line.split('\t')
                 parsed_values = [parse_value(v) for v in values]
                 vals_str = ", ".join(parsed_values)
                 sql = f"INSERT INTO {table_name} ({columns}) VALUES ({vals_str}) ON CONFLICT DO NOTHING;\n"
-                f_out.write(sql)
+                table_blocks[table_name].append(sql)
+
+    
+        # Define validation order (dependencies first)
+        ordered_tables = [
+            'public.users',
+            'public.system_config',
+            'public.system_standards',
+            'public.product_categories',
+            'public.product_subcategories',
+            'public.lead_farmers',
+            'public.facilitators',
+            'public.farmers',
+            'public.buyers',
+            'public.products',
+            'public.orders',
+            'public.order_items',
+            'public.shopping_cart',
+            'public.payments',
+            'public.complaints',
+            'public.notifications',
+            'public.buyer_product_requests',
+            # Add others as needed
+        ]
+        
+        # Write ordered tables first
+        for tbl in ordered_tables:
+            if tbl in table_blocks:
+                for stmt in table_blocks[tbl]:
+                    f_out.write(stmt)
+                del table_blocks[tbl]
+                
+        # Write remaining tables
+        for tbl in table_blocks:
+            for stmt in table_blocks[tbl]:
+                f_out.write(stmt)
 
 convert_copy_to_insert('sample_data.sql', 'converted_data.sql')
 print("Conversion complete.")
