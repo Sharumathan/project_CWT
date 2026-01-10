@@ -475,32 +475,32 @@ INSERT INTO public.wishlists (id, buyer_id, product_id, created_at, updated_at) 
 -- Sequence Resets
 DO $$
 BEGIN
-    BEGIN PERFORM pg_catalog.setval('public.buyer_product_requests_id_seq', 43, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.buyers_id_seq', 21, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.complaints_id_seq', 4, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.facilitators_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.failed_jobs_id_seq', 1, false);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.farmers_id_seq', 3, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.jobs_id_seq', 4, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.lead_farmers_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.migrations_id_seq', 8, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.notifications_id_seq', 58, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.order_items_id_seq', 19, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.orders_id_seq', 9, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.otp_verifications_id_seq', 19, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.password_history_id_seq', 11, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.payments_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.product_categories_id_seq', 14, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.product_examples_id_seq', 120, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.product_feedback_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.product_subcategories_id_seq', 38, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.products_id_seq', 70, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.shopping_cart_id_seq', 12, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.system_config_id_seq', 41, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.system_standards_id_seq', 8, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.templates_id_seq', 2, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.users_id_seq', 26, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
-    BEGIN PERFORM pg_catalog.setval('public.wishlists_id_seq', 12, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.buyer_product_requests_id_seq', 43, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.buyers_id_seq', 21, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.complaints_id_seq', 4, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.facilitators_id_seq', 2, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.failed_jobs_id_seq', 1, false); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.farmers_id_seq', 3, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.jobs_id_seq', 4, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.lead_farmers_id_seq', 2, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.migrations_id_seq', 8, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.notifications_id_seq', 58, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.order_items_id_seq', 19, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.orders_id_seq', 9, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.otp_verifications_id_seq', 19, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.password_history_id_seq', 11, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.payments_id_seq', 2, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.product_categories_id_seq', 14, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.product_examples_id_seq', 120, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.product_feedback_id_seq', 2, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.product_subcategories_id_seq', 38, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.products_id_seq', 70, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.shopping_cart_id_seq', 12, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.system_config_id_seq', 41, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.system_standards_id_seq', 8, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.templates_id_seq', 2, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.users_id_seq', 26, true); EXCEPTION WHEN OTHERS THEN NULL; END;
+    BEGIN PERFORM pg_catalog.setval('public.wishlists_id_seq', 12, true); EXCEPTION WHEN OTHERS THEN NULL; END;
 END $$;
 
 SET session_replication_role = 'origin';

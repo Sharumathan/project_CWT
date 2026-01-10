@@ -143,8 +143,11 @@ def convert_copy_to_insert(input_file, output_file):
             # "PERFORM" is needed for select in DO block
             # stmt is "SELECT pg_catalog.setval(...);"
             # We convert to "PERFORM pg_catalog.setval(...);"
-            perform_stmt = stmt.replace("SELECT", "PERFORM", 1)
-            f_out.write(f"    BEGIN {perform_stmt} EXCEPTION WHEN OTHERS THEN NULL; END;\n")
+            # Clean up the statement: remove whitespace and trailing semicolon
+            clean_stmt = stmt.strip().rstrip(';')
+            # We convert to "PERFORM pg_catalog.setval(...)"
+            perform_stmt = clean_stmt.replace("SELECT", "PERFORM", 1)
+            f_out.write(f"    BEGIN {perform_stmt}; EXCEPTION WHEN OTHERS THEN NULL; END;\n")
         f_out.write("END $$;\n\n")
         
         # Re-enable foreign key checks
