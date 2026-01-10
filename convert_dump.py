@@ -131,6 +131,18 @@ def convert_copy_to_insert(input_file, output_file):
         ]
         
         # Write ordered tables first
+        
+        # CLEAR EXISTING DATA FIRST
+        # We need to truncate tables to ensure the new fixed data replaces the old bad data.
+        # We use CASCADE to handle FKs, though we are in replica mode so it might not be strictly necessary, 
+        # but it's safer for a clean state.
+        all_tables = ordered_tables + [t for t in table_blocks.keys() if t not in ordered_tables]
+        if all_tables:
+            # Format: TRUNCATE TABLE t1, t2, t3 CASCADE;
+            # strip 'public.' for cleaner SQL if desired, but full qualified is fine.
+            trunc_list = ", ".join(all_tables)
+            f_out.write(f"TRUNCATE TABLE {trunc_list} CASCADE;\n\n")
+
         for tbl in ordered_tables:
             if tbl in table_blocks:
                 for stmt in table_blocks[tbl]:

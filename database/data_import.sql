@@ -1,5 +1,7 @@
 SET session_replication_role = 'replica';
 
+TRUNCATE TABLE public.users, public.system_config, public.system_standards, public.product_categories, public.product_subcategories, public.lead_farmers, public.facilitators, public.farmers, public.buyers, public.products, public.orders, public.order_items, public.shopping_cart, public.payments, public.complaints, public.notifications, public.buyer_product_requests, public.cache, public.cache_locks, public.failed_jobs, public.job_batches, public.jobs, public.migrations, public.otp_verifications, public.password_history, public.product_examples, public.product_feedback, public.sessions, public.templates, public.wishlists CASCADE;
+
 -- Importing public.users
 INSERT INTO public.users (id, username, password, email, role, is_active, profile_photo, created_at, last_login, updated_at) VALUES ('15', 'TharminiBuyer', '$2y$12$KHJIc58a.oKU8xLdGUw5BOnsWgza0c3T3AEOyG0cNfYpkRxHW36Ra', 'abishiganfcl24@gmail.com', 'buyer', 't', 'default-avatar.png', '2025-12-18 12:24:00', NULL, '2025-12-18 12:24:00') ON CONFLICT DO NOTHING;
 INSERT INTO public.users (id, username, password, email, role, is_active, profile_photo, created_at, last_login, updated_at) VALUES ('16', 'Buyer_Ragu_1712', '$2y$12$MZGBiGwaOIXY/B5CMLadX.QdC4pPTNAnXif0jF9.IAhQMv4zLh71q', 'raguraam712@gmail.com', 'buyer', 't', 'default-avatar.png', '2025-12-18 13:53:13', NULL, '2025-12-18 13:53:13') ON CONFLICT DO NOTHING;
