@@ -517,3 +517,17 @@ Route::get('/temp-db-import', function () {
         return "<h1>Error Importing Database</h1><p>" . $e->getMessage() . "</p>";
     }
 });
+
+Route::get('/debug-email', function () {
+    try {
+        \Illuminate\Support\Facades\Mail::raw('This is a test email from GreenMarket Debugger.', function ($message) {
+            $message->to('sharumathan@gmail.com')
+                ->subject('GreenMarket SMTP Debug');
+        });
+        return 'Email sent successfully! Your SMTP configuration is correct.';
+    } catch (\Exception $e) {
+        return '<h1>Email Sending Failed</h1>' .
+            '<p><strong>Error Message:</strong> ' . $e->getMessage() . '</p>' .
+            '<p><strong>Stack Trace:</strong> <pre>' . $e->getTraceAsString() . '</pre></p>';
+    }
+});
