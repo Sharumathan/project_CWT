@@ -1,3 +1,5 @@
+SET session_replication_role = 'replica';
+
 -- Importing public.users
 INSERT INTO public.users (id, username, password, email, role, is_active, profile_photo, created_at, last_login, updated_at) VALUES ('15', 'TharminiBuyer', '$2y$12$KHJIc58a.oKU8xLdGUw5BOnsWgza0c3T3AEOyG0cNfYpkRxHW36Ra', 'abishiganfcl24@gmail.com', 'buyer', 't', 'default-avatar.png', '2025-12-18 12:24:00', NULL, '2025-12-18 12:24:00') ON CONFLICT DO NOTHING;
 INSERT INTO public.users (id, username, password, email, role, is_active, profile_photo, created_at, last_login, updated_at) VALUES ('16', 'Buyer_Ragu_1712', '$2y$12$MZGBiGwaOIXY/B5CMLadX.QdC4pPTNAnXif0jF9.IAhQMv4zLh71q', 'raguraam712@gmail.com', 'buyer', 't', 'default-avatar.png', '2025-12-18 13:53:13', NULL, '2025-12-18 13:53:13') ON CONFLICT DO NOTHING;
@@ -500,3 +502,5 @@ BEGIN
     BEGIN PERFORM pg_catalog.setval('public.users_id_seq', 26, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
     BEGIN PERFORM pg_catalog.setval('public.wishlists_id_seq', 12, true);; EXCEPTION WHEN OTHERS THEN NULL; END;
 END $$;
+
+SET session_replication_role = 'origin';

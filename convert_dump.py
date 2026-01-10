@@ -18,6 +18,9 @@ def convert_copy_to_insert(input_file, output_file):
     setval_lines = []
 
     with open(input_file, 'r') as f_in, open(output_file, 'w') as f_out:
+        # Disable foreign key checks for the session
+        f_out.write("SET session_replication_role = 'replica';\n\n")
+        
         lines = f_in.readlines()
         
         table_name = None
@@ -142,7 +145,10 @@ def convert_copy_to_insert(input_file, output_file):
             # We convert to "PERFORM pg_catalog.setval(...);"
             perform_stmt = stmt.replace("SELECT", "PERFORM", 1)
             f_out.write(f"    BEGIN {perform_stmt} EXCEPTION WHEN OTHERS THEN NULL; END;\n")
-        f_out.write("END $$;\n")
+        f_out.write("END $$;\n\n")
+        
+        # Re-enable foreign key checks
+        f_out.write("SET session_replication_role = 'origin';\n")
 
 convert_copy_to_insert('sample_data.sql', 'converted_data.sql')
 print("Conversion complete.")
