@@ -27,7 +27,10 @@ class BrevoTransport extends AbstractTransport
                 'email' => $email->getFrom()[0]->getAddress(),
             ],
             'to' => array_map(function ($address) {
-                return ['email' => $address->getAddress(), 'name' => $address->getName()];
+                return [
+                    'email' => $address->getAddress(),
+                    'name' => $address->getName() ?: $address->getAddress()
+                ];
             }, $email->getTo()),
             'subject' => $email->getSubject(),
             'htmlContent' => $email->getHtmlBody(),
