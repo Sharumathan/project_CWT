@@ -497,3 +497,17 @@ Route::get('/test-middleware', function () {
         'all' => array_keys($middleware)
     ]);
 })->middleware('auth');
+Route::get('/debug-email', function () {
+    try {
+        $recipient = request()->query('to', 'malabepasanga@gmail.com');
+        \Illuminate\Support\Facades\Mail::raw('This is a test email from GreenMarket via Brevo.', function ($message) use ($recipient) {
+            $message->to($recipient)
+                ->subject('GreenMarket Brevo Test');
+        });
+        return "Email sent successfully to <strong>$recipient</strong> via Brevo!";
+    } catch (\Exception $e) {
+        return '<h1>Email Sending Failed</h1>' .
+            '<p><strong>Error Message:</strong> ' . $e->getMessage() . '</p>' .
+            '<p><strong>Stack Trace:</strong> <pre>' . $e->getTraceAsString() . '</pre></p>';
+    }
+});
