@@ -37,6 +37,15 @@ class BrevoTransport extends AbstractTransport
             'textContent' => $email->getTextBody(),
         ];
 
+        if ($replyTo = $email->getReplyTo()) {
+            if (isset($replyTo[0])) {
+                $payload['replyTo'] = [
+                    'email' => $replyTo[0]->getAddress(),
+                    'name' => $replyTo[0]->getName() ?: $replyTo[0]->getAddress(),
+                ];
+            }
+        }
+
         $response = Http::withHeaders([
             'api-key' => $this->apiKey,
             'Content-Type' => 'application/json',

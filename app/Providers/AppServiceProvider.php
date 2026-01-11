@@ -39,5 +39,13 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\Mail::extend('brevo', function (array $config = []) {
             return new \App\Mail\Transport\BrevoTransport(config('services.brevo.key'));
         });
+
+        // Add global reply-to if set in .env
+        \Illuminate\Support\Facades\Event::listen(\Illuminate\Mail\Events\MessageSending::class, function ($event) {
+            $replyTo = config('mail.from.reply_to');
+            if ($replyTo && empty($event->message->getReplyTo())) {
+                $event->message->replyTo($replyTo);
+            }
+        });
     }
 }
