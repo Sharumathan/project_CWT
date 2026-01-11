@@ -505,8 +505,8 @@ Route::get('/debug-email', function () {
                 ->subject('GreenMarket Brevo SMTP Test');
         });
         return "Email sent successfully to <strong>$recipient</strong> via Brevo SMTP!";
-    } catch (\Exception $e) {
-        return '<h1>Email Sending Failed</h1>' .
+    } catch (\Throwable $e) {
+        return '<h1>Email Sending Failed (Fatal)</h1>' .
             '<p><strong>Error Message:</strong> ' . $e->getMessage() . '</p>' .
             '<p><strong>Stack Trace:</strong> <pre>' . $e->getTraceAsString() . '</pre></p>';
     }
