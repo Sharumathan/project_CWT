@@ -46,6 +46,22 @@ class BrevoTransport extends AbstractTransport
             }
         }
 
+        // Handle inline attachments (like logos)
+        foreach ($email->getAttachments() as $attachment) {
+            $headers = $attachment->getPreparedHeaders();
+            $disposition = $headers->get('Content-Disposition');
+
+            if ($disposition && str_contains($disposition->getBodyAsString(), 'inline')) {
+                $contentId = $headers->get('Content-ID');
+                $cid = $contentId ? trim($contentId->getBodyAsString(), '<>') : $attachment->getFilename();
+
+                $payload['inline'][] = [
+                    'content' => base64_encode($attachment->getBody()),
+                    'name' => $cid,
+                ];
+            }
+        }
+
         $response = Http::withHeaders([
             'api-key' => $this->apiKey,
             'Content-Type' => 'application/json',
