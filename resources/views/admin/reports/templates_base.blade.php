@@ -36,13 +36,12 @@
             border-collapse: collapse;
             margin-bottom: 20px;
             background-color: #e9f1dc;
-            padding: 10px;
         }
 
         .header-left {
             width: 60%;
             vertical-align: middle;
-            padding: 10px;
+            padding: 20px;
         }
 
         .header-right {
@@ -50,7 +49,7 @@
             vertical-align: middle;
             text-align: right;
             font-size: 12px;
-            padding: 10px;
+            padding: 20px;
         }
 
         /* ===== PDF SAFE LOGO ===== */
@@ -222,11 +221,16 @@
                     <div class="logo-container">
                         @php
                             $logoPath = public_path('assets/images/logo-4.png');
+                            $logoBase64 = '';
+                            if (file_exists($logoPath)) {
+                                $logoData = base64_encode(file_get_contents($logoPath));
+                                $logoBase64 = 'data:image/png;base64,' . $logoData;
+                            }
                         @endphp
 
                         <div class="logo-box">
-                            @if(file_exists($logoPath))
-                                <img src="{{ $logoPath }}" alt="Logo">
+                            @if($logoBase64)
+                                <img src="{{ $logoBase64 }}" alt="Logo">
                             @endif
                         </div>
 

@@ -5,23 +5,23 @@
         <i class="fas fa-history"></i> Order History Details
     </div>
 
-    @if(count($data) > 0)
+    @if(isset($data) && (is_array($data) ? count($data) : $data->count()) > 0)
         <table class="summary-stats" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
             <tr>
                 <td class="stat-card" style="width: 25%;">
-                    <div class="stat-value">{{ count($data) }}</div>
+                    <div class="stat-value">{{ is_array($data) ? count($data) : $data->count() }}</div>
                     <div class="stat-label">Total Orders</div>
                 </td>
                 <td class="stat-card" style="width: 25%;">
-                    <div class="stat-value">Rs. {{ number_format(collect($data)->sum('total_amount'), 2) }}</div>
+                    <div class="stat-value">Rs. {{ number_format(is_array($data) ? array_sum(array_column((array)$data, 'total_amount')) : $data->sum('total_amount'), 2) }}</div>
                     <div class="stat-label">Total Revenue</div>
                 </td>
                 <td class="stat-card" style="width: 25%;">
-                    <div class="stat-value">{{ collect($data)->where('order_status', 'completed')->count() }}</div>
+                    <div class="stat-value">{{ is_array($data) ? count(array_filter((array)$data, fn($o) => (is_object($o) ? $o->order_status : $o['order_status']) == 'completed')) : $data->where('order_status', 'completed')->count() }}</div>
                     <div class="stat-label">Completed Orders</div>
                 </td>
                 <td class="stat-card" style="width: 25%;">
-                    <div class="stat-value">{{ collect($data)->where('order_status', 'pending')->count() }}</div>
+                    <div class="stat-value">{{ is_array($data) ? count(array_filter((array)$data, fn($o) => (is_object($o) ? $o->order_status : $o['order_status']) == 'pending')) : $data->where('order_status', 'pending')->count() }}</div>
                     <div class="stat-label">Pending Orders</div>
                 </td>
             </tr>
