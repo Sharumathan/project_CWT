@@ -221,16 +221,13 @@
                     <div class="logo-container">
                         @php
                             $logoPath = public_path('assets/images/logo-4.png');
-                            $logoBase64 = '';
-                            if (file_exists($logoPath)) {
-                                $logoData = base64_encode(file_get_contents($logoPath));
-                                $logoBase64 = 'data:image/png;base64,' . $logoData;
-                            }
                         @endphp
 
                         <div class="logo-box">
-                            @if($logoBase64)
-                                <img src="{{ $logoBase64 }}" alt="Logo">
+                            @if(file_exists($logoPath))
+                                <img src="{{ $logoPath }}" alt="Logo">
+                            @else
+                                <div style="color: white; font-weight: bold; padding: 10px;">GM</div>
                             @endif
                         </div>
 
