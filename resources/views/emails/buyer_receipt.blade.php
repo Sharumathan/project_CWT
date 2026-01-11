@@ -9,18 +9,7 @@
 
 <!-- Logo Section -->
 <div style="text-align: center; background: #10B981; padding: 20px; margin-bottom: 20px;">
-    @php
-        $logoPngPath = public_path('assets/images/logo-4.png');
-        $logoSvgPath = public_path('assets/images/Logo-4.svg');
-    @endphp
-
-    @if(file_exists($logoPngPath))
-        <img src="{{ $message->embed($logoPngPath) }}" alt="GreenMarket Logo" style="max-width: 120px; height: auto; display: block; margin: 0 auto;">
-    @elseif(file_exists($logoSvgPath))
-        <img src="{{ $message->embed($logoSvgPath) }}" alt="GreenMarket Logo" style="max-width: 120px; height: auto; display: block; margin: 0 auto;">
-    @else
-        <h2 style="color: white; margin: 0;">GreenMarket</h2>
-    @endif
+    <img src="{{ config('app.url') }}/assets/images/logo-4.png" alt="GreenMarket Logo" style="max-width: 120px; height: auto; display: block; margin: 0 auto;">
 </div>
 
 <h2>Thank you for your purchase!</h2>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +14,9 @@
 			--text-color: #0f1724;
 			--muted: #6b7280;
 			--border-color: #e5e7eb;
-			--shadow-sm: 0 1px 3px rgba(15,23,36,0.04);
-			--shadow-md: 0 4px 6px rgba(15,23,36,0.1);
-			--shadow-lg: 0 10px 25px rgba(15,23,36,0.1);
+			--shadow-sm: 0 1px 3px rgba(15, 23, 36, 0.04);
+			--shadow-md: 0 4px 6px rgba(15, 23, 36, 0.1);
+			--shadow-lg: 0 10px 25px rgba(15, 23, 36, 0.1);
 		}
 
 		body {
@@ -34,8 +35,15 @@
 		}
 
 		@keyframes fadeIn {
-			from { opacity: 0; transform: translateY(10px); }
-			to { opacity: 1; transform: translateY(0); }
+			from {
+				opacity: 0;
+				transform: translateY(10px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 
 		.header {
@@ -274,22 +282,13 @@
 		}
 	</style>
 </head>
+
 <body>
 	<div class="container">
 		<div class="header">
 			<!-- Logo Section -->
-			@php
-				$logoPngPath = public_path('assets/images/logo-4.png');
-				$logoSvgPath = public_path('assets/images/Logo-4.svg');
-			@endphp
-
-			@if(file_exists($logoPngPath))
-				<img src="{{ $message->embed($logoPngPath) }}" alt="GreenMarket Logo" style="max-width: 100px; height: auto; display: block; margin: 0 auto 15px;">
-			@elseif(file_exists($logoSvgPath))
-				<img src="{{ $message->embed($logoSvgPath) }}" alt="GreenMarket Logo" style="max-width: 100px; height: auto; display: block; margin: 0 auto 15px;">
-			@else
-				<h2 style="color: var(--primary-green); margin: 0 0 10px;">GreenMarket</h2>
-			@endif
+			<img src="{{ config('app.url') }}/assets/images/logo-4.png" alt="GreenMarket Logo"
+				style="max-width: 100px; height: auto; display: block; margin: 0 auto 15px;">
 
 			<h1>New Message Received</h1>
 			<p>GreenMarket • Contact Form Submission</p>
@@ -313,10 +312,10 @@
 				</div>
 
 				@if(!empty($data['subject']))
-				<div class="info-item">
-					<span class="info-label">Subject</span>
-					<div class="info-value">{{ $data['subject'] }}</div>
-				</div>
+					<div class="info-item">
+						<span class="info-label">Subject</span>
+						<div class="info-value">{{ $data['subject'] }}</div>
+					</div>
 				@endif
 
 				<div class="info-item">
@@ -353,20 +352,20 @@
 			window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 		}
 
-		document.addEventListener('DOMContentLoaded', function() {
+		document.addEventListener('DOMContentLoaded', function () {
 			const messageCard = document.querySelector('.message-card');
 
-			messageCard.addEventListener('mouseenter', function() {
+			messageCard.addEventListener('mouseenter', function () {
 				this.style.transform = 'translateY(-4px)';
 			});
 
-			messageCard.addEventListener('mouseleave', function() {
+			messageCard.addEventListener('mouseleave', function () {
 				this.style.transform = 'translateY(0)';
 			});
 
 			const infoItems = document.querySelectorAll('.info-item');
 			infoItems.forEach(item => {
-				item.addEventListener('click', function() {
+				item.addEventListener('click', function () {
 					this.style.backgroundColor = '#f8fafc';
 					setTimeout(() => {
 						this.style.backgroundColor = '';
@@ -375,14 +374,15 @@
 			});
 
 			const actionButton = document.querySelector('.action-button');
-			actionButton.addEventListener('mouseenter', function() {
+			actionButton.addEventListener('mouseenter', function () {
 				this.style.transform = 'translateY(-2px) scale(1.02)';
 			});
 
-			actionButton.addEventListener('mouseleave', function() {
+			actionButton.addEventListener('mouseleave', function () {
 				this.style.transform = 'translateY(0) scale(1)';
 			});
 		});
 	</script>
 </body>
+
 </html>

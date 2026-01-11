@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -167,75 +168,69 @@
 </head>
 
 <body>
-<div class="email-container">
+    <div class="email-container">
 
-    <!-- Header -->
-    <div class="header">
-        <div style="text-align: center; margin-bottom: 20px;">
-            @php
-                // Define the logo paths
-                $logoPngPath = public_path('assets/images/logo-4.png');
-                $logoSvgPath = public_path('assets/images/Logo-4.svg');
-            @endphp
-
-            @if(file_exists($logoPngPath))
-                <img src="{{ $message->embed($logoPngPath) }}" alt="GreenMarket Logo" style="max-width: 80px; height: auto; display: block; margin: 0 auto 10px;">
-            @elseif(file_exists($logoSvgPath))
-                <img src="{{ $message->embed($logoSvgPath) }}" alt="GreenMarket Logo" style="max-width: 80px; height: auto; display: block; margin: 0 auto 10px;">
-            @endif
+        <!-- Header -->
+        <div class="header">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="{{ config('app.url') }}/assets/images/logo-4.png" alt="GreenMarket Logo"
+                    style="max-width: 80px; height: auto; display: block; margin: 0 auto 10px;">
                 <p style="font-weight: bold; font-size: 24px; color: #ffffff; margin: 10px 0;">GreenMarket</p>
 
+            </div>
+            <h1>Product Request Notification</h1>
         </div>
-        <h1>Product Request Notification</h1>
-    </div>
 
-    <!-- Content -->
-    <div class="content">
-        <h2 class="title">Product Request Removed</h2>
+        <!-- Content -->
+        <div class="content">
+            <h2 class="title">Product Request Removed</h2>
 
-        <p class="intro">
-            Dear <strong>{{ $mailData['buyer_name'] }}</strong>,
-        </p>
-
-        <div class="notice-box">
-            <p>
-                After careful review by our administration team, your product request has been removed as it does not currently meet our platform guidelines.
+            <p class="intro">
+                Dear <strong>{{ $mailData['buyer_name'] }}</strong>,
             </p>
-            <p>
-                We truly appreciate your interest in GreenMarket and encourage you to submit a new request that aligns with our product standards.
-            </p>
+
+            <div class="notice-box">
+                <p>
+                    After careful review by our administration team, your product request has been removed as it does
+                    not currently meet our platform guidelines.
+                </p>
+                <p>
+                    We truly appreciate your interest in GreenMarket and encourage you to submit a new request that
+                    aligns with our product standards.
+                </p>
+            </div>
+
+            <h3 class="section-title">Request Details</h3>
+
+            <table class="details-table">
+                <tr>
+                    <td class="label">Product Name</td>
+                    <td class="value">{{ $mailData['product_name'] }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Needed Date</td>
+                    <td class="value">{{ \Carbon\Carbon::parse($mailData['needed_date'])->format('F d, Y') }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Quantity</td>
+                    <td class="value">{{ $mailData['quantity'] }}</td>
+                </tr>
+            </table>
+
+            <div class="btn-wrapper">
+                <a href="{{ url('/buyer/dashboard') }}" class="dashboard-btn">
+                    Go to Dashboard
+                </a>
+            </div>
         </div>
 
-        <h3 class="section-title">Request Details</h3>
-
-        <table class="details-table">
-            <tr>
-                <td class="label">Product Name</td>
-                <td class="value">{{ $mailData['product_name'] }}</td>
-            </tr>
-            <tr>
-                <td class="label">Needed Date</td>
-                <td class="value">{{ \Carbon\Carbon::parse($mailData['needed_date'])->format('F d, Y') }}</td>
-            </tr>
-            <tr>
-                <td class="label">Quantity</td>
-                <td class="value">{{ $mailData['quantity'] }}</td>
-            </tr>
-        </table>
-
-        <div class="btn-wrapper">
-            <a href="{{ url('/buyer/dashboard') }}" class="dashboard-btn">
-                Go to Dashboard
-            </a>
+        <!-- Footer -->
+        <div class="footer">
+            <p>© {{ date('Y') }} GreenMarket. All rights reserved.</p>
+            <p>This is an automated message. Please do not reply.</p>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>© {{ date('Y') }} GreenMarket. All rights reserved.</p>
-        <p>This is an automated message. Please do not reply.</p>
     </div>
-
-</div>
 </body>
+
 </html>

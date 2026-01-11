@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,7 @@
             background-color: #ffffff;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(15,23,36,0.1);
+            box-shadow: 0 10px 25px rgba(15, 23, 36, 0.1);
         }
 
         .header {
@@ -175,20 +176,13 @@
         }
     </style>
 </head>
+
 <body>
     <div class="email-container">
         <div class="header">
             <!-- Logo Section -->
-            @php
-                $logoPngPath = public_path('assets/images/logo-4.png');
-                $logoSvgPath = public_path('assets/images/Logo-4.svg');
-            @endphp
-
-            @if(file_exists($logoPngPath))
-                <img src="{{ $message->embed($logoPngPath) }}" alt="GreenMarket Logo" style="max-width: 80px; height: auto; display: block; margin: 0 auto 10px;">
-            @elseif(file_exists($logoSvgPath))
-                <img src="{{ $message->embed($logoSvgPath) }}" alt="GreenMarket Logo" style="max-width: 80px; height: auto; display: block; margin: 0 auto 10px;">
-            @endif
+            <img src="{{ config('app.url') }}/assets/images/logo-4.png" alt="GreenMarket Logo"
+                style="max-width: 80px; height: auto; display: block; margin: 0 auto 10px;">
 
             <h1>GreenMarket</h1>
             <p>Password Reset Successful</p>
@@ -255,4 +249,5 @@
         </div>
     </div>
 </body>
+
 </html>
