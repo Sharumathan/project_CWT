@@ -6,24 +6,26 @@
     </div>
 
     @if(count($data) > 0)
-        <div class="summary-stats">
-            <div class="stat-card">
-                <div class="stat-value">{{ count($data) }}</div>
-                <div class="stat-label">Total Orders</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">Rs. {{ number_format(collect($data)->sum('total_amount'), 2) }}</div>
-                <div class="stat-label">Total Revenue</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{ collect($data)->where('order_status', 'completed')->count() }}</div>
-                <div class="stat-label">Completed Orders</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{ collect($data)->where('order_status', 'pending')->count() }}</div>
-                <div class="stat-label">Pending Orders</div>
-            </div>
-        </div>
+        <table class="summary-stats" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr>
+                <td class="stat-card" style="width: 25%;">
+                    <div class="stat-value">{{ count($data) }}</div>
+                    <div class="stat-label">Total Orders</div>
+                </td>
+                <td class="stat-card" style="width: 25%;">
+                    <div class="stat-value">Rs. {{ number_format(collect($data)->sum('total_amount'), 2) }}</div>
+                    <div class="stat-label">Total Revenue</div>
+                </td>
+                <td class="stat-card" style="width: 25%;">
+                    <div class="stat-value">{{ collect($data)->where('order_status', 'completed')->count() }}</div>
+                    <div class="stat-label">Completed Orders</div>
+                </td>
+                <td class="stat-card" style="width: 25%;">
+                    <div class="stat-value">{{ collect($data)->where('order_status', 'pending')->count() }}</div>
+                    <div class="stat-label">Pending Orders</div>
+                </td>
+            </tr>
+        </table>
 
         <table class="report-table">
             <thead>

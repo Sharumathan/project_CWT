@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,21 +13,20 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Helvetica', 'Arial', sans-serif;
             font-size: 11px;
             line-height: 1.4;
             color: #0f1724;
-            background-color: #f1f5f9;
+            background-color: #ffffff;
             margin: 0;
-            padding: 5px;
+            padding: 0;
         }
 
         .report-container {
-            background: #e9f1dc;
-            border-radius: 8px;
-            padding: 10px;
-            max-width: 1100px;
-            margin: 0 auto;
+            width: 100%;
+            background: #ffffff;
+            padding: 0;
+            margin: 0;
         }
 
         /* ================= HEADER ================= */
@@ -34,56 +34,59 @@
         .report-header-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            background-color: #e9f1dc;
+            padding: 10px;
         }
 
         .header-left {
-            width: 65%;
+            width: 60%;
             vertical-align: middle;
+            padding: 10px;
         }
 
         .header-right {
-            width: 20%;
+            width: 40%;
             vertical-align: middle;
-            text-align: left;
-            font-size: 13px;
+            text-align: right;
+            font-size: 12px;
+            padding: 10px;
         }
 
-        /* ===== PDF SAFE RECTANGULAR OVAL LOGO ===== */
+        /* ===== PDF SAFE LOGO ===== */
 
-        .logo-wrapper {
-            display: table;
+        .logo-container {
+            width: 100%;
         }
 
-        .logo-oval {
-            display: table-cell;
-            width: 140px;
-            height: 80px;
+        .logo-box {
             background-color: #4d7c32;
+            padding: 5px 15px;
             border-radius: 40px;
-            text-align: center;
+            display: inline-block;
             vertical-align: middle;
         }
 
-        .logo-oval img {
-            max-width: 135px;
-            max-height: 75px;
+        .logo-box img {
+            height: 60px;
+            width: auto;
+            vertical-align: middle;
         }
 
         .brand-name {
-            display: table-cell;
-            padding-left: 18px;
-            font-size: 28px;
-            font-weight: 900;
+            padding-left: 15px;
+            font-size: 24px;
+            font-weight: bold;
             color: #3e7033;
             vertical-align: middle;
-            font-family: 'Georgia', serif;
+            display: inline-block;
         }
 
         .header-divider {
-            height: 5px;
+            height: 3px;
             background-color: #4d7c32;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            width: 100%;
         }
 
         /* ================= FILTERS ================= */
@@ -210,63 +213,61 @@
 
 <body>
 
-<div class="report-container">
+    <div class="report-container">
 
-    <!-- ================= HEADER ================= -->
-    <table class="report-header-table">
-        <tr>
-            <td class="header-left">
-                <div class="logo-wrapper">
-                    @php
-                        $logoPath = public_path('assets/images/Logo-4.png');
-                        $logoSvgPath = public_path('assets/images/Logo-4.svg');
-                    @endphp
+        <!-- ================= HEADER ================= -->
+        <table class="report-header-table">
+            <tr>
+                <td class="header-left">
+                    <div class="logo-container">
+                        @php
+                            $logoPath = public_path('assets/images/logo-4.png');
+                        @endphp
 
-                    <div class="logo-oval">
-                        @if(file_exists($logoPath))
-                            <img src="{{ $logoPath }}" alt="GreenMarket Logo">
-                        @elseif(file_exists($logoSvgPath))
-                            <img src="{{ $logoSvgPath }}" alt="GreenMarket Logo">
-                        @endif
+                        <div class="logo-box">
+                            @if(file_exists($logoPath))
+                                <img src="{{ $logoPath }}" alt="Logo">
+                            @endif
+                        </div>
+
+                        <span class="brand-name">GreenMarket</span>
                     </div>
+                </td>
 
-                    <span class="brand-name">GreenMarket</span>
-                </div>
-            </td>
+                <td class="header-right">
+                    <div><strong>Report Type</strong> : {{ $reportTitle ?? 'Report' }}</div>
+                    <div><strong>Generated Date</strong> : {{ date('Y-m-d') }}</div>
+                    <div><strong>Generated Time</strong> : {{ date('H:i:s') }}</div>
+                </td>
+            </tr>
+        </table>
 
-            <td class="header-right">
-                <div><strong>Report Type</strong> : {{ $reportTitle ?? 'Report' }}</div>
-                <div><strong>Generated Date</strong> : {{ date('Y-m-d') }}</div>
-                <div><strong>Generated Time</strong> : {{ date('H:i:s') }}</div>
-            </td>
-        </tr>
-    </table>
+        <div class="header-divider"></div>
 
-    <div class="header-divider"></div>
+        <!-- ================= FILTERS ================= -->
+        @if(isset($filters))
+            <div class="filters-section">
+                <strong>Active Filters:</strong>
+                @foreach($filters as $key => $value)
+                    @if($value)
+                        <span class="filter-value">{{ $key }}: {{ $value }}</span>
+                    @endif
+                @endforeach
+            </div>
+        @endif
 
-    <!-- ================= FILTERS ================= -->
-    @if(isset($filters))
-        <div class="filters-section">
-            <strong>Active Filters:</strong>
-            @foreach($filters as $key => $value)
-                @if($value)
-                    <span class="filter-value">{{ $key }}: {{ $value }}</span>
-                @endif
-            @endforeach
+        <!-- ================= CHILD CONTENT ================= -->
+        @yield('report-content')
+
+        <!-- ================= FOOTER ================= -->
+        <div class="report-footer">
+            <div>© {{ date('Y') }} GreenMarket. All rights reserved.</div>
+            <div>This report was automatically generated by the GreenMarket System</div>
+            <div>Confidential - For Internal Use Only</div>
         </div>
-    @endif
 
-    <!-- ================= CHILD CONTENT ================= -->
-    @yield('report-content')
-
-    <!-- ================= FOOTER ================= -->
-    <div class="report-footer">
-        <div>© {{ date('Y') }} GreenMarket. All rights reserved.</div>
-        <div>This report was automatically generated by the GreenMarket System</div>
-        <div>Confidential - For Internal Use Only</div>
     </div>
 
-</div>
-
 </body>
+
 </html>
