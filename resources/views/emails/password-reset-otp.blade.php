@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,7 @@
             background-color: #ffffff;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(15,23,36,0.1);
+            box-shadow: 0 10px 25px rgba(15, 23, 36, 0.1);
         }
 
         .header {
@@ -138,20 +139,13 @@
         }
     </style>
 </head>
+
 <body>
     <div class="email-container">
         <div class="header">
             <!-- Logo Section -->
-            @php
-                $logoPngPath = public_path('assets/images/logo-4.png');
-                $logoSvgPath = public_path('assets/images/Logo-4.svg');
-            @endphp
-
-            @if(file_exists($logoPngPath))
-                <img src="{{ $message->embed($logoPngPath) }}" alt="GreenMarket Logo" style="max-width: 80px; height: auto; display: block; margin: 0 auto 10px;">
-            @elseif(file_exists($logoSvgPath))
-                <img src="{{ $message->embed($logoSvgPath) }}" alt="GreenMarket Logo" style="max-width: 80px; height: auto; display: block; margin: 0 auto 10px;">
-            @endif
+            <img src="{{ config('app.url') }}/assets/images/logo-4.png" alt="GreenMarket Logo"
+                style="max-width: 140px; height: auto; display: block; margin: 0 auto 10px;">
 
             <h1>GreenMarket</h1>
             <p>Password Reset OTP</p>
@@ -160,7 +154,8 @@
         <div class="content">
             <h2>Password Reset Request</h2>
             <p>Hello,</p>
-            <p>We received a request to reset your password for your GreenMarket account. Use the OTP below to verify your identity:</p>
+            <p>We received a request to reset your password for your GreenMarket account. Use the OTP below to verify
+                your identity:</p>
 
             <div class="otp-box">
                 <h3>Your Verification Code</h3>
@@ -169,7 +164,8 @@
             </div>
 
             <div class="info-box">
-                <p><i class="fas fa-info-circle"></i> If you didn't request this password reset, please ignore this email.</p>
+                <p><i class="fas fa-info-circle"></i> If you didn't request this password reset, please ignore this
+                    email.</p>
             </div>
 
             <div class="security-note">
@@ -177,7 +173,8 @@
                 <p>Never share this OTP with anyone. GreenMarket will never ask for your password or OTP.</p>
             </div>
 
-            <p>Need help? Contact our support team at <a href="mailto:support@smartmarket.com">support@smartmarket.com</a></p>
+            <p>Need help? Contact our support team at <a
+                    href="mailto:support@smartmarket.com">support@smartmarket.com</a></p>
 
             <p style="margin-top: 30px;">
                 Best regards,<br>
@@ -191,4 +188,5 @@
         </div>
     </div>
 </body>
+
 </html>
