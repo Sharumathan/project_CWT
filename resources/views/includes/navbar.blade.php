@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>GreenMarket</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@section('styles')
 	<style>
 		:root {
 			--primary-green: #10B981;
@@ -19,8 +11,8 @@
 			--blue: #3b82f6;
 			--purple: #8b5cf6;
 			--yellow: #f59e0b;
-			--shadow-sm: 0 1px 3px rgba(15,23,36,0.04);
-			--shadow-md: 0 7px 15px rgba(15,23,36,0.08);
+			--shadow-sm: 0 1px 3px rgba(15, 23, 36, 0.04);
+			--shadow-md: 0 7px 15px rgba(15, 23, 36, 0.08);
 			--transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		}
 
@@ -57,13 +49,13 @@
 
 		.logo-section {
 			display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+			align-items: center;
+			gap: 10px;
+			flex-shrink: 0;
+			user-select: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
 		}
 
 		.logo-link {
@@ -82,10 +74,10 @@
 			height: 60px;
 			width: auto;
 			object-fit: contain;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
+			-webkit-user-drag: none;
+			-khtml-user-drag: none;
+			-moz-user-drag: none;
+			-o-user-drag: none;
 		}
 
 		.logo-text {
@@ -278,6 +270,7 @@
 				opacity: 0;
 				transform: translateY(-10px);
 			}
+
 			to {
 				opacity: 1;
 				transform: translateY(0);
@@ -420,9 +413,12 @@
 		}
 
 		@keyframes float {
-			0%, 100% {
+
+			0%,
+			100% {
 				transform: translateY(0);
 			}
+
 			50% {
 				transform: translateY(-3px);
 			}
@@ -436,9 +432,11 @@
 			0% {
 				transform: scale(1);
 			}
+
 			50% {
 				transform: scale(1.05);
 			}
+
 			100% {
 				transform: scale(1);
 			}
@@ -449,9 +447,19 @@
 		}
 
 		@keyframes shake {
-			0%, 100% { transform: translateX(0); }
-			25% { transform: translateX(-3px); }
-			75% { transform: translateX(3px); }
+
+			0%,
+			100% {
+				transform: translateX(0);
+			}
+
+			25% {
+				transform: translateX(-3px);
+			}
+
+			75% {
+				transform: translateX(3px);
+			}
 		}
 
 		.ripple-effect {
@@ -482,157 +490,189 @@
 				transform: scale(0, 0);
 				opacity: 0.5;
 			}
+
 			100% {
 				transform: scale(20, 20);
 				opacity: 0;
 			}
 		}
 	</style>
-</head>
-<body>
-	<header class="site-header">
-		<div class="header-container">
-			<div class="logo-section">
-                <a href="{{ url('/') }}"
-                class="logo-link float-animation"
-                oncontextmenu="return false;">
+@endsection
 
-                    <img src="{{ asset('assets/images/logo-4.png') }}"
-                        alt="GreenMarket Logo"
-                        class="logo-img"
-                        draggable="false">
+@php
+	$dashboardUrl = '#';
+	if (auth()->check()) {
+		$user = auth()->user();
+		switch ($user->role) {
+			case 'admin':
+				$dashboardUrl = '/admin/dashboard';
+				break;
+			case 'facilitator':
+				$dashboardUrl = '/facilitator/dashboard';
+				break;
+			case 'lead_farmer':
+				$dashboardUrl = '/lead-farmer/dashboard';
+				break;
+			case 'farmer':
+				$dashboardUrl = '/farmer/dashboard';
+				break;
+			case 'buyer':
+				$dashboardUrl = '/buyer/dashboard';
+				break;
+		}
+	}
+@endphp
 
-                    <span class="logo-text">GreenMarket</span>
-                </a>
-            </div>
+<header class="site-header">
+	<div class="header-container">
+		<div class="logo-section">
+			<a href="{{ url('/') }}" class="logo-link float-animation" oncontextmenu="return false;">
 
-			<button class="mobile-menu-btn" id="mobileMenuBtn">
-				<i class="fas fa-bars"></i>
-			</button>
+				<img src="{{ asset('assets/images/logo-4.png') }}" alt="GreenMarket Logo" class="logo-img"
+					draggable="false">
 
-			<nav class="desktop-nav">
-				<a href="{{ url('/') }}" class="nav-link ripple-effect {{ request()->is('/') ? 'active' : '' }}">
-					<i class="fas fa-home"></i> Home
-				</a>
-				<a href="{{ url('/about-us') }}" class="nav-link ripple-effect {{ request()->is('about-us') || request()->is('about-us/*') ? 'active' : '' }}">
-					<i class="fas fa-info-circle"></i> About
-				</a>
-				<a href="{{ url('/how-it-works') }}" class="nav-link ripple-effect {{ request()->is('how-it-works') ? 'active' : '' }}">
-					<i class="fas fa-question-circle"></i> How It Works
-				</a>
-				<a href="{{ url('/contact-us') }}" class="nav-link ripple-effect {{ request()->is('contact-us') || request()->is('contact-us/*') ? 'active' : '' }}">
-					<i class="fas fa-envelope"></i> Contact
-				</a>
-
-				<div class="auth-buttons">
-					@guest
-						<a href="{{ url('/register/buyer') }}" class="btn-auth btn-register pulse-hover">
-							<i class="fas fa-user-plus"></i> Register
-						</a>
-						<a href="{{ url('/login') }}" class="btn-auth btn-login pulse-hover">
-							<i class="fas fa-sign-in-alt"></i> Login
-						</a>
-					@else
-						<div class="user-section">
-							<div class="user-greeting">
-								<i class="fas fa-user-circle"></i>
-								<span>{{ Auth::user()->username ?? 'User' }}</span>
-							</div>
-							<a href="{{ $dashboardUrl ?? '#' }}" class="dashboard-link pulse-hover">
-								<i class="fas fa-tachometer-alt"></i>
-							</a>
-							<a href="{{ url('/logout') }}"
-							   onclick="event.preventDefault(); logoutUser();"
-							   class="btn-auth btn-logout shake-animation">
-								<i class="fas fa-sign-out-alt"></i>
-							</a>
-							<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-								@csrf
-							</form>
-						</div>
-					@endguest
-				</div>
-			</nav>
+				<span class="logo-text">GreenMarket</span>
+			</a>
 		</div>
 
-		<nav class="mobile-nav" id="mobileNav">
-			<a href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
+		<button class="mobile-menu-btn" id="mobileMenuBtn">
+			<i class="fas fa-bars"></i>
+		</button>
+
+		<nav class="desktop-nav">
+			<a href="{{ url('/') }}" class="nav-link ripple-effect {{ request()->is('/') ? 'active' : '' }}">
 				<i class="fas fa-home"></i> Home
 			</a>
-			<a href="{{ url('/about-us') }}" class="nav-link {{ request()->is('about-us') || request()->is('about-us/*') ? 'active' : '' }}">
+			<a href="{{ url('/about-us') }}"
+				class="nav-link ripple-effect {{ request()->is('about-us') || request()->is('about-us/*') ? 'active' : '' }}">
 				<i class="fas fa-info-circle"></i> About
 			</a>
-			<a href="{{ url('/how-it-works') }}" class="nav-link {{ request()->is('how-it-works') ? 'active' : '' }}">
+			<a href="{{ url('/how-it-works') }}"
+				class="nav-link ripple-effect {{ request()->is('how-it-works') ? 'active' : '' }}">
 				<i class="fas fa-question-circle"></i> How It Works
 			</a>
-			<a href="{{ url('/contact-us') }}" class="nav-link {{ request()->is('contact-us') || request()->is('contact-us/*') ? 'active' : '' }}">
+			<a href="{{ url('/contact-us') }}"
+				class="nav-link ripple-effect {{ request()->is('contact-us') || request()->is('contact-us/*') ? 'active' : '' }}">
 				<i class="fas fa-envelope"></i> Contact
 			</a>
 
-			<div class="mobile-auth-buttons">
+			<div class="auth-buttons">
 				@guest
-					<a href="{{ url('/buyer/register') }}" class="btn-auth btn-register">
+					<a href="{{ url('/register/buyer') }}" class="btn-auth btn-register pulse-hover">
 						<i class="fas fa-user-plus"></i> Register
 					</a>
-					<a href="{{ url('/login') }}" class="btn-auth btn-login">
+					<a href="{{ url('/login') }}" class="btn-auth btn-login pulse-hover">
 						<i class="fas fa-sign-in-alt"></i> Login
 					</a>
 				@else
-					<div class="user-greeting" style="margin: 5px 0; justify-content: center;">
-						<i class="fas fa-user-circle"></i>
-						<span>Welcome, {{ Auth::user()->username ?? 'User' }}</span>
+					<div class="user-section">
+						<div class="user-greeting">
+							<i class="fas fa-user-circle"></i>
+							<span>{{ Auth::user()->username ?? 'User' }}</span>
+						</div>
+						<a href="{{ url($dashboardUrl) }}" class="dashboard-link pulse-hover">
+							<i class="fas fa-tachometer-alt"></i>
+						</a>
+						<a href="{{ url('/logout') }}" onclick="event.preventDefault(); logoutUser();"
+							class="btn-auth btn-logout shake-animation">
+							<i class="fas fa-sign-out-alt"></i>
+						</a>
+						<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+							@csrf
+						</form>
 					</div>
-					<a href="{{ $dashboardUrl ?? '#' }}" class="btn-auth" style="background: linear-gradient(135deg, var(--accent-amber), var(--yellow));">
-						<i class="fas fa-tachometer-alt"></i> Dashboard
-					</a>
-					<a href="{{ url('/logout') }}"
-					   onclick="event.preventDefault(); logoutUser();"
-					   class="btn-auth btn-logout">
-						<i class="fas fa-sign-out-alt"></i> Logout
-					</a>
 				@endguest
 			</div>
 		</nav>
-	</header>
+	</div>
 
+	<nav class="mobile-nav" id="mobileNav">
+		<a href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
+			<i class="fas fa-home"></i> Home
+		</a>
+		<a href="{{ url('/about-us') }}"
+			class="nav-link {{ request()->is('about-us') || request()->is('about-us/*') ? 'active' : '' }}">
+			<i class="fas fa-info-circle"></i> About
+		</a>
+		<a href="{{ url('/how-it-works') }}" class="nav-link {{ request()->is('how-it-works') ? 'active' : '' }}">
+			<i class="fas fa-question-circle"></i> How It Works
+		</a>
+		<a href="{{ url('/contact-us') }}"
+			class="nav-link {{ request()->is('contact-us') || request()->is('contact-us/*') ? 'active' : '' }}">
+			<i class="fas fa-envelope"></i> Contact
+		</a>
+
+		<div class="mobile-auth-buttons">
+			@guest
+				<a href="{{ url('/buyer/register') }}" class="btn-auth btn-register">
+					<i class="fas fa-user-plus"></i> Register
+				</a>
+				<a href="{{ url('/login') }}" class="btn-auth btn-login">
+					<i class="fas fa-sign-in-alt"></i> Login
+				</a>
+			@else
+				<div class="user-greeting" style="margin: 5px 0; justify-content: center;">
+					<i class="fas fa-user-circle"></i>
+					<span>Welcome, {{ Auth::user()->username ?? 'User' }}</span>
+				</div>
+				<a href="{{ url($dashboardUrl) }}" class="btn-auth"
+					style="background: linear-gradient(135deg, var(--accent-amber), var(--yellow));">
+					<i class="fas fa-tachometer-alt"></i> Dashboard
+				</a>
+				<a href="{{ url('/logout') }}" onclick="event.preventDefault(); logoutUser();" class="btn-auth btn-logout">
+					<i class="fas fa-sign-out-alt"></i> Logout
+				</a>
+			@endguest
+		</div>
+	</nav>
+</header>
+
+@section('scripts')
 	<script>
-		document.addEventListener('DOMContentLoaded', function() {
+		document.addEventListener('DOMContentLoaded', function () {
 			const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 			const mobileNav = document.getElementById('mobileNav');
 			const navLinks = document.querySelectorAll('.nav-link');
 
-			mobileMenuBtn.addEventListener('click', function() {
-				mobileNav.classList.toggle('active');
-				const icon = this.querySelector('i');
-				icon.classList.toggle('fa-bars');
-				icon.classList.toggle('fa-times');
-				this.classList.toggle('pulse-hover');
-			});
+			if (mobileMenuBtn && mobileNav) {
+				mobileMenuBtn.addEventListener('click', function () {
+					mobileNav.classList.toggle('active');
+					const icon = this.querySelector('i');
+					if (icon) {
+						icon.classList.toggle('fa-bars');
+						icon.classList.toggle('fa-times');
+					}
+					this.classList.toggle('pulse-hover');
+				});
+			}
 
 			navLinks.forEach(link => {
-				link.addEventListener('click', function() {
-					if (window.innerWidth <= 991) {
+				link.addEventListener('click', function () {
+					if (window.innerWidth <= 991 && mobileNav && mobileMenuBtn) {
 						mobileNav.classList.remove('active');
-						mobileMenuBtn.querySelector('i').classList.remove('fa-times');
-						mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+						const icon = mobileMenuBtn.querySelector('i');
+						if (icon) {
+							icon.classList.remove('fa-times');
+							icon.classList.add('fa-bars');
+						}
 					}
 				});
 			});
 
-			window.addEventListener('resize', function() {
-				if (window.innerWidth > 991) {
+			window.addEventListener('resize', function () {
+				if (window.innerWidth > 991 && mobileNav && mobileMenuBtn) {
 					mobileNav.classList.remove('active');
-					mobileMenuBtn.querySelector('i').classList.remove('fa-times');
-					mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+					const icon = mobileMenuBtn.querySelector('i');
+					if (icon) {
+						icon.classList.remove('fa-times');
+						icon.classList.add('fa-bars');
+					}
 				}
 			});
 
 			// Set active class based on page-title or URL
 			function setActiveNavLink() {
-				// Get current URL path
 				const currentPath = window.location.pathname;
-
-				// Find and activate the matching link
 				navLinks.forEach(link => {
 					const href = link.getAttribute('href');
 					if (href === currentPath) {
@@ -641,7 +681,6 @@
 				});
 			}
 
-			// Set active nav on page load
 			setActiveNavLink();
 
 			@if(session('success'))
@@ -649,12 +688,12 @@
 					icon: 'success',
 					title: 'Welcome back!',
 					html: `
-						<div style="text-align: center; padding: 10px;">
-							<h3 style="color: #10B981; margin-bottom: 10px;">Login Successful</h3>
-							<p style="color: #6b7280;">Welcome <strong>{{ session('name') }}</strong></p>
-							<p style="color: #6b7280; font-size: 0.9rem;">Role: <span style="background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px; color: #059669;">{{ session('role') }}</span></p>
-						</div>
-					`,
+							<div style="text-align: center; padding: 10px;">
+								<h3 style="color: #10B981; margin-bottom: 10px;">Login Successful</h3>
+								<p style="color: #6b7280;">Welcome <strong>{{ session('name') }}</strong></p>
+								<p style="color: #6b7280; font-size: 0.9rem;">Role: <span style="background: rgba(16, 185, 129, 0.1); padding: 4px 12px; border-radius: 20px; color: #059669;">{{ session('role') }}</span></p>
+							</div>
+						`,
 					timer: 3000,
 					showConfirmButton: false,
 					background: '#ffffff',
@@ -688,7 +727,10 @@
 				color: '#0f1724'
 			}).then((result) => {
 				if (result.isConfirmed) {
-					document.getElementById('logout-form').submit();
+					const logoutForm = document.getElementById('logout-form');
+					if (logoutForm) {
+						logoutForm.submit();
+					}
 				}
 			});
 		}
@@ -706,9 +748,8 @@
 			@endif
 		}
 
-		window.onload = function() {
+		window.onload = function () {
 			showRegisterSuccess();
 		};
 	</script>
-</body>
-</html>
+@endsection
