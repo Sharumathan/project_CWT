@@ -500,11 +500,11 @@ Route::get('/test-middleware', function () {
 Route::get('/debug-email', function () {
     try {
         $recipient = request()->query('to', 'malabepasanga@gmail.com');
-        \Illuminate\Support\Facades\Mail::raw('This is a test email from GreenMarket via Brevo SMTP.', function ($message) use ($recipient) {
+        \Illuminate\Support\Facades\Mail::raw('This is a test email from GreenMarket via Brevo HTTP API.', function ($message) use ($recipient) {
             $message->to($recipient)
-                ->subject('GreenMarket Brevo SMTP Test');
+                ->subject('GreenMarket Brevo HTTP Test');
         });
-        return "Email sent successfully to <strong>$recipient</strong> via Brevo SMTP!";
+        return "Email sent successfully to <strong>$recipient</strong> via Brevo HTTP API!";
     } catch (\Throwable $e) {
         return '<h1>Email Sending Failed (Fatal)</h1>' .
             '<p><strong>Error Message:</strong> ' . $e->getMessage() . '</p>' .

@@ -36,5 +36,8 @@ class AppServiceProvider extends ServiceProvider
             // Database not ready or schema doesn't exist yet
             // Fail silently during build/initialization
         }
+        \Illuminate\Support\Facades\Mail::extend('brevo', function (array $config = []) {
+            return new \App\Mail\Transport\BrevoTransport(config('services.brevo.key'));
+        });
     }
 }
